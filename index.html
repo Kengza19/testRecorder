@@ -10,7 +10,7 @@
         <input type="file" accept="audio/*" capture id="recorder" />
         <audio id="player" controls></audio>
     </div>
-    <script>
+    <!-- <script>
         const recorder = document.getElementById('recorder');
         const player = document.getElementById('player');
         
@@ -20,6 +20,21 @@
             // Do something with the audio file.
             player.src = url;
         });
-    </script>    
+    </script>     -->
+    <script>
+        const player = document.getElementById('player');
+        
+        const handleSuccess = function(stream) {
+            if (window.URL) {
+                player.srcObject = stream;
+            } else {
+                player.src = stream;
+            }
+        };
+        
+        navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+        .then(handleSuccess);
+    </script>
+    
 </body>
 </html>
